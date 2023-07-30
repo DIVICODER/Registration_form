@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Garamond, serif;
+      background-image: url("formal_bg3.jpg");
+    }
+    .container {
+      width: 500px;
+      padding: 20px;
+      margin-top: 100px;
+      margin-left: 400px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color:rgba(176, 213, 230, 0.76);
+    }
+    h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      
+    }
+    .form-group input {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+    .form-group input[type="submit"] {
+      width: 94%; /* Adjust the width as needed, e.g., 200px or 50% */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2><font color="blue">REGISTRATION FORM</font></h2>
+    <form onsubmit="return validateForm()" method="post">
+      <div class="form-group">
+        <label for="username"><font color="purple">USER NAME:</font></label>
+        <input type="text" id="username" name="username" placeholder="Enter your name " required>
+        <div class="error-message" id="username-error"></div>
+      </div>
+      <div class="form-group">
+        <label for="email"><font color="purple">EMAIL:</font></label>
+        <input type="email" id="email" name="email" placeholder="Enter your email id" required>
+        <div class="error-message" id="email-error"></div>
+      </div>
+      <div class="form-group">
+        <label for="password"><font color="purple">PASSWORD:</font></label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div class="error-message" id="password-error"></div>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password"><font color="purple">CONFIRM PASSWORD:</font></label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+        <div class="error-message" id="confirm-password-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <input type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      let isValid = true;
+
+      // Clear previous error messages
+      document.querySelectorAll('.error-message').forEach((error) => {
+        error.textContent = '';
+      });
+
+      // Username validation
+      if (username.length < 3) {
+        document.getElementById('username-error').textContent = 'Username must be at least 3 characters long.';
+        isValid = false;
+      }
+
+      // Email validation
+      if (!validateEmail(email)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email address.';
+        isValid = false;
+      }
+
+      // Password validation
+      if (password.length < 6) {
+        document.getElementById('password-error').textContent = 'Password must be at least 6 characters long.';
+        isValid = false;
+      }
+
+      // Confirm Password validation
+      if (password !== confirmPassword) {
+        document.getElementById('confirm-password-error').textContent = 'Passwords do not match.';
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // Email validation helper function
+    function validateEmail(email) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailPattern.test(email);
+    }
+  </script>
+</body>
+</html>
+
